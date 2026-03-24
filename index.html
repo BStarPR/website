@@ -1,636 +1,553 @@
-<!doctype html>
-<html lang="en" class="h-full">
- <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BStarPR - Elevate Your Brandy</title>
-  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-  <script src="/_sdk/element_sdk.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; }
-   body {
-  background: linear-gradient(135deg, #1a0b3b 0%, #4b1f7f 50%, #8a3ff0 100%);
-  color: white; /* optional: makes text readable on dark background */
-}
-    .font-display { font-family: 'Playfair Display', serif; }
-    .font-body { font-family: 'DM Sans', sans-serif; }
-   
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(2deg); }
-    }
-   
-    @keyframes shimmer {
-      0% { background-position: -200% center; }
-      100% { background-position: 200% center; }
-    }
-   
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-   
-    @keyframes scaleIn {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
-    }
-   
-    @keyframes slideInLeft {
-      from { opacity: 0; transform: translateX(-60px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-   
-    @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
-      50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.6); }
-    }
-   
-    .animate-float { animation: float 6s ease-in-out infinite; }
-    .animate-float-delay { animation: float 6s ease-in-out infinite 2s; }
-    .animate-shimmer {
-      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
-      background-size: 200% 100%;
-      animation: shimmer 3s linear infinite;
-    }
-   
-    .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-    .scale-in { animation: scaleIn 0.6s ease-out forwards; }
-    .slide-in-left { animation: slideInLeft 0.8s ease-out forwards; }
-   
-    .delay-100 { animation-delay: 0.1s; }
-    .delay-200 { animation-delay: 0.2s; }
-    .delay-300 { animation-delay: 0.3s; }
-    .delay-400 { animation-delay: 0.4s; }
-    .delay-500 { animation-delay: 0.5s; }
-    .delay-600 { animation-delay: 0.6s; }
-   
-    .gold-gradient {
-      background: linear-gradient(135deg, #D4AF37 0%, #F4E4BA 50%, #D4AF37 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-   
-    .btn-primary {
-      position: relative;
-      overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-   
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s;
-    }
-   
-    .btn-primary:hover::before {
-      left: 100%;
-    }
-   
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
-    }
-   
-    .service-card {
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-   
-    .service-card:hover {
-      transform: translateY(-10px);
-    }
-   
-    .star-decoration {
-      position: absolute;
-      opacity: 0.1;
-    }
-   
-    .nav-link {
-      position: relative;
-    }
-   
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #D4AF37;
-      transition: width 0.3s ease;
-    }
-   
-    .nav-link:hover::after {
-      width: 100%;
-    }
-   
-    .stat-card {
-      backdrop-filter: blur(10px);
-    }
-   
-    .scroll-indicator {
-      animation: bounce 2s infinite;
-    }
-   
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
-      40% { transform: translateY(-10px) translateX(-50%); }
-      60% { transform: translateY(-5px) translateX(-50%); }
-    }
-  </style>
-  <style>body { box-sizing: border-box; }</style>
-  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
- </head>
- <body class="h-full font-body">
-  <div id="app-wrapper" class="h-full w-full overflow-auto" style="background: #0A0A0F;"><!-- Navigation -->
-   <nav class="fixed top-0 left-0 right-0 z-50 px-6 py-4 transition-all duration-300" style="background: rgba(10, 10, 15, 0.9); backdrop-filter: blur(20px);">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
-     <div class="flex items-center gap-2 fade-in-up">
-      <svg width="40" height="40" viewbox="0 0 40 40" fill="none"><polygon points="20,2 25,15 38,15 27,24 31,38 20,29 9,38 13,24 2,15 15,15" fill="#D4AF37" /> <circle cx="20" cy="20" r="6" fill="#0A0A0F" />
-      </svg><span class="text-2xl font-display font-bold gold-gradient">BStarPR</span>
-     </div>
-     <div class="hidden md:flex items-center gap-8"><a href="#about" class="nav-link text-gray-300 hover:text-white transition-colors">About</a> <a href="#services" class="nav-link text-gray-300 hover:text-white transition-colors">Services</a> <a href="#portfolio" class="nav-link text-gray-300 hover:text-white transition-colors">Portfolio</a> <a href="#contact" class="btn-primary px-6 py-2 rounded-full font-semibold" style="background: #D4AF37; color: #0A0A0F;">Get Started</a>
-     </div><button id="mobile-menu-btn" class="md:hidden text-white p-2">
-      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" />
-      </svg></button>
-    </div>
-   </nav><!-- Mobile Menu -->
-   <div id="mobile-menu" class="fixed inset-0 z-40 hidden" style="background: rgba(10, 10, 15, 0.98);">
-    <div class="flex flex-col items-center justify-center h-full gap-8 text-2xl"><a href="#about" class="text-gray-300 hover:text-white transition-colors">About</a> <a href="#services" class="text-gray-300 hover:text-white transition-colors">Services</a> <a href="#portfolio" class="text-gray-300 hover:text-white transition-colors">Portfolio</a> <a href="#contact" class="btn-primary px-8 py-3 rounded-full font-semibold" style="background: #D4AF37; color: #0A0A0F;">Get Started</a>
-    </div>
-   </div><!-- Hero Section -->
-   <section class="relative min-h-screen flex items-center justify-center px-6 overflow-hidden"><!-- Animated Background Elements -->
-    <div class="absolute inset-0 overflow-hidden">
-     <div class="star-decoration animate-float" style="top: 10%; left: 10%;">
-      <svg width="60" height="60" viewbox="0 0 40 40" fill="#D4AF37"><polygon points="20,2 25,15 38,15 27,24 31,38 20,29 9,38 13,24 2,15 15,15" />
-      </svg>
-     </div>
-     <div class="star-decoration animate-float-delay" style="top: 20%; right: 15%;">
-      <svg width="40" height="40" viewbox="0 0 40 40" fill="#D4AF37"><polygon points="20,2 25,15 38,15 27,24 31,38 20,29 9,38 13,24 2,15 15,15" />
-      </svg>
-     </div>
-     <div class="star-decoration animate-float" style="bottom: 30%; left: 5%;">
-      <svg width="30" height="30" viewbox="0 0 40 40" fill="#D4AF37"><polygon points="20,2 25,15 38,15 27,24 31,38 20,29 9,38 13,24 2,15 15,15" />
-      </svg>
-     </div>
-     <div class="star-decoration animate-float-delay" style="bottom: 20%; right: 10%;">
-      <svg width="50" height="50" viewbox="0 0 40 40" fill="#D4AF37"><polygon points="20,2 25,15 38,15 27,24 31,38 20,29 9,38 13,24 2,15 15,15" />
-      </svg>
-     </div><!-- Gradient Orbs -->
-     <div class="absolute w-96 h-96 rounded-full blur-3xl opacity-20" style="background: radial-gradient(circle, #D4AF37, transparent); top: -10%; right: -10%;"></div>
-     <div class="absolute w-80 h-80 rounded-full blur-3xl opacity-10" style="background: radial-gradient(circle, #D4AF37, transparent); bottom: 10%; left: -5%;"></div>
-    </div>
-    <div class="relative z-10 text-center max-w-5xl mx-auto">
-     <div class="fade-in-up opacity-0" style="animation-fill-mode: forwards;"><span class="inline-block px-4 py-2 rounded-full text-sm font-semibold mb-6 border" style="border-color: #D4AF37; color: #D4AF37;"> ✦ Premier PR Agency ✦ </span>
-     </div>
-     <h1 id="hero-title" class="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 fade-in-up opacity-0 delay-100" style="animation-fill-mode: forwards; line-height: 1.1;">Elevate Your Brand<br><span class="gold-gradient">To Stardom</span></h1>
-     <p id="hero-subtitle" class="text-xl md:text-2xl text-gray-400 mb-10 max-w-2xl mx-auto fade-in-up opacity-0 delay-200" style="animation-fill-mode: forwards;">Strategic PR solutions that transform businesses into iconic brands</p>
-     <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in-up opacity-0 delay-300" style="animation-fill-mode: forwards;"><a href="#contact" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold" style="background: #D4AF37; color: #0A0A0F;"> Start Your Journey </a> <a href="#portfolio" class="px-8 py-4 rounded-full text-lg font-semibold border-2 text-white hover:bg-white hover:text-black transition-all duration-300" style="border-color: rgba(255,255,255,0.3);"> View Our Work </a>
-     </div><!-- Scroll Indicator -->
-     <div class="scroll-indicator absolute bottom-10 left-1/2 transform -translate-x-1/2">
-      <svg width="30" height="50" viewbox="0 0 30 50" fill="none" stroke="#D4AF37" stroke-width="2"><rect x="1" y="1" width="28" height="48" rx="14" /> <circle cx="15" cy="15" r="4" fill="#D4AF37">
-        <animate attributename="cy" values="12;25;12" dur="1.5s" repeatcount="indefinite" />
-       </circle>
-      </svg>
-     </div>
-    </div>
-   </section><!-- Stats Bar -->
-   <section class="py-8 border-y" style="border-color: rgba(212, 175, 55, 0.2); background: rgba(212, 175, 55, 0.05);">
-    <div class="max-w-7xl mx-auto px-6">
-     <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-      <div class="text-center">
-       <div class="text-4xl md:text-5xl font-display font-bold gold-gradient">
-        150+
-       </div>
-       <div class="text-gray-400 mt-2">
-        Clients Served
-       </div>
-      </div>
-      <div class="text-center">
-       <div class="text-4xl md:text-5xl font-display font-bold gold-gradient">
-        $2B+
-       </div>
-       <div class="text-gray-400 mt-2">
-        Media Value Generated
-       </div>
-      </div>
-      <div class="text-center">
-       <div class="text-4xl md:text-5xl font-display font-bold gold-gradient">
-        500+
-       </div>
-       <div class="text-gray-400 mt-2">
-        Campaigns Launched
-       </div>
-      </div>
-      <div class="text-center">
-       <div class="text-4xl md:text-5xl font-display font-bold gold-gradient">
-        12
-       </div>
-       <div class="text-gray-400 mt-2">
-        Industry Awards
-       </div>
-      </div>
-     </div>
-    </div>
-   </section><!-- About Section -->
-   <section id="about" class="py-24 px-6">
-    <div class="max-w-7xl mx-auto">
-     <div class="grid md:grid-cols-2 gap-16 items-center">
-      <div><span class="text-sm font-semibold tracking-wider" style="color: #D4AF37;">WHO WE ARE</span>
-       <h2 id="about-title" class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Your Story, Amplified</h2>
-       <p id="about-description" class="text-lg text-gray-400 mb-8 leading-relaxed">BStarPR is a boutique public relations agency dedicated to crafting compelling narratives that resonate. We blend strategic thinking with creative storytelling to position your brand at the forefront of your industry.</p>
-       <div class="grid grid-cols-2 gap-6">
-        <div class="p-6 rounded-2xl" style="background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.2);">
-         <div class="text-3xl mb-3">
-          🎯
-         </div>
-         <h4 class="text-white font-semibold mb-2">Strategic Vision</h4>
-         <p class="text-gray-400 text-sm">Data-driven strategies tailored to your goals</p>
-        </div>
-        <div class="p-6 rounded-2xl" style="background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.2);">
-         <div class="text-3xl mb-3">
-          ✨
-         </div>
-         <h4 class="text-white font-semibold mb-2">Creative Excellence</h4>
-         <p class="text-gray-400 text-sm">Compelling stories that captivate audiences</p>
-        </div>
-       </div>
-      </div>
-      <div class="relative">
-       <div class="aspect-square rounded-3xl overflow-hidden relative" style="background: linear-gradient(135deg, #1a1a24 0%, #0d0d12 100%); border: 1px solid rgba(212, 175, 55, 0.3);">
-        <div class="absolute inset-0 flex items-center justify-center">
-         <svg width="200" height="200" viewbox="0 0 40 40" fill="none" class="animate-float"><polygon points="20,2 25,15 38,15 27,24 31,38 20,29 9,38 13,24 2,15 15,15" fill="#D4AF37" opacity="0.8" /> <polygon points="20,8 23,16 32,16 25,21 27,30 20,25 13,30 15,21 8,16 17,16" fill="#0A0A0F" />
-         </svg>
-        </div>
-        <div class="animate-shimmer absolute inset-0"></div>
-       </div>
-       <div class="absolute -bottom-6 -left-6 w-32 h-32 rounded-2xl flex items-center justify-center" style="background: #D4AF37;"><span class="text-4xl font-display font-bold" style="color: #0A0A0F;">10+</span>
-       </div>
-       <div class="absolute -top-4 -right-4 px-6 py-3 rounded-full" style="background: rgba(10, 10, 15, 0.9); border: 1px solid rgba(212, 175, 55, 0.5);"><span style="color: #D4AF37;">Years of Excellence</span>
-       </div>
-      </div>
-     </div>
-    </div>
-   </section><!-- Services Section -->
-   <section id="services" class="py-24 px-6" style="background: linear-gradient(180deg, transparent 0%, rgba(212, 175, 55, 0.03) 50%, transparent 100%);">
-    <div class="max-w-7xl mx-auto">
-     <div class="text-center mb-16"><span class="text-sm font-semibold tracking-wider" style="color: #D4AF37;">WHAT WE DO</span>
-      <h2 id="services-title" class="font-display text-4xl md:text-5xl font-bold text-white mt-4">Our Services</h2>
-     </div>
-     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"><!-- Service Card 1 -->
-      <div class="service-card p-8 rounded-3xl cursor-pointer group" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(212, 175, 55, 0.15);">
-       <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style="background: rgba(212, 175, 55, 0.15);">
-        <svg width="32" height="32" viewbox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z" /> <path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" /> <path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z" /> <path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z" /> <path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z" /> <path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z" /> <path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z" /> <path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z" />
-        </svg>
-       </div>
-       <h3 class="text-xl font-bold text-white mb-4">Media Relations</h3>
-       <p class="text-gray-400 leading-relaxed">Build lasting relationships with journalists and secure premium coverage in top-tier publications worldwide.</p>
-      </div><!-- Service Card 2 -->
-      <div class="service-card p-8 rounded-3xl cursor-pointer group" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(212, 175, 55, 0.15);">
-       <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style="background: rgba(212, 175, 55, 0.15);">
-        <svg width="32" height="32" viewbox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-        </svg>
-       </div>
-       <h3 class="text-xl font-bold text-white mb-4">Crisis Management</h3>
-       <p class="text-gray-400 leading-relaxed">Navigate challenging situations with strategic communication and protect your brand's reputation.</p>
-      </div><!-- Service Card 3 -->
-      <div class="service-card p-8 rounded-3xl cursor-pointer group" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(212, 175, 55, 0.15);">
-       <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style="background: rgba(212, 175, 55, 0.15);">
-        <svg width="32" height="32" viewbox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" /> <circle cx="8.5" cy="8.5" r="1.5" /> <path d="M21 15l-5-5L5 21" />
-        </svg>
-       </div>
-       <h3 class="text-xl font-bold text-white mb-4">Social Media PR</h3>
-       <p class="text-gray-400 leading-relaxed">Amplify your message across digital platforms with engaging content and influencer partnerships.</p>
-      </div><!-- Service Card 4 -->
-      <div class="service-card p-8 rounded-3xl cursor-pointer group" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(212, 175, 55, 0.15);">
-       <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style="background: rgba(212, 175, 55, 0.15);">
-        <svg width="32" height="32" viewbox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><path d="M12 20V10" /> <path d="M18 20V4" /> <path d="M6 20v-4" />
-        </svg>
-       </div>
-       <h3 class="text-xl font-bold text-white mb-4">Brand Strategy</h3>
-       <p class="text-gray-400 leading-relaxed">Develop compelling brand positioning and messaging that differentiates you from competitors.</p>
-      </div><!-- Service Card 5 -->
-      <div class="service-card p-8 rounded-3xl cursor-pointer group" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(212, 175, 55, 0.15);">
-       <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style="background: rgba(212, 175, 55, 0.15);">
-        <svg width="32" height="32" viewbox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /> <circle cx="9" cy="7" r="4" /> <path d="M23 21v-2a4 4 0 0 0-3-3.87" /> <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-        </svg>
-       </div>
-       <h3 class="text-xl font-bold text-white mb-4">Event Management</h3>
-       <p class="text-gray-400 leading-relaxed">Create memorable experiences with flawless event planning and execution that leave lasting impressions.</p>
-      </div><!-- Service Card 6 -->
-      <div class="service-card p-8 rounded-3xl cursor-pointer group" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(212, 175, 55, 0.15);">
-       <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110" style="background: rgba(212, 175, 55, 0.15);">
-        <svg width="32" height="32" viewbox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-        </svg>
-       </div>
-       <h3 class="text-xl font-bold text-white mb-4">Thought Leadership</h3>
-       <p class="text-gray-400 leading-relaxed">Position executives as industry experts through speaking engagements, articles, and strategic visibility.</p>
-      </div>
-     </div>
-    </div>
-   </section><!-- Portfolio Section -->
-   <section id="portfolio" class="py-24 px-6">
-    <div class="max-w-7xl mx-auto">
-     <div class="text-center mb-16"><span class="text-sm font-semibold tracking-wider" style="color: #D4AF37;">OUR WORK</span>
-      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4">Featured Campaigns</h2>
-     </div>
-     <div class="grid md:grid-cols-2 gap-8"><!-- Portfolio Item 1 -->
-      <div class="group relative overflow-hidden rounded-3xl cursor-pointer" style="background: linear-gradient(135deg, #1a1a24 0%, #0d0d12 100%); border: 1px solid rgba(212, 175, 55, 0.2);">
-       <div class="p-8">
-        <div class="flex items-center gap-4 mb-6">
-         <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" style="background: rgba(212, 175, 55, 0.2);">
-          🚀
-         </div>
-         <div>
-          <h4 class="text-white font-bold">TechVenture Launch</h4>
-          <p class="text-gray-500 text-sm">Technology Sector</p>
-         </div>
-        </div>
-        <p class="text-gray-400 mb-6">Orchestrated a global product launch reaching 50M+ impressions across 12 countries.</p>
-        <div class="flex gap-4">
-         <div class="px-4 py-2 rounded-full text-sm" style="background: rgba(212, 175, 55, 0.1); color: #D4AF37;">
-          +340% Coverage
-         </div>
-         <div class="px-4 py-2 rounded-full text-sm" style="background: rgba(212, 175, 55, 0.1); color: #D4AF37;">
-          Forbes Featured
-         </div>
-        </div>
-       </div>
-      </div><!-- Portfolio Item 2 -->
-      <div class="group relative overflow-hidden rounded-3xl cursor-pointer" style="background: linear-gradient(135deg, #1a1a24 0%, #0d0d12 100%); border: 1px solid rgba(212, 175, 55, 0.2);">
-       <div class="p-8">
-        <div class="flex items-center gap-4 mb-6">
-         <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" style="background: rgba(212, 175, 55, 0.2);">
-          💎
-         </div>
-         <div>
-          <h4 class="text-white font-bold">Luxe Brand Rebrand</h4>
-          <p class="text-gray-500 text-sm">Luxury &amp; Fashion</p>
-         </div>
-        </div>
-        <p class="text-gray-400 mb-6">Complete brand transformation resulting in 200% increase in brand value perception.</p>
-        <div class="flex gap-4">
-         <div class="px-4 py-2 rounded-full text-sm" style="background: rgba(212, 175, 55, 0.1); color: #D4AF37;">
-          Vogue Feature
-         </div>
-         <div class="px-4 py-2 rounded-full text-sm" style="background: rgba(212, 175, 55, 0.1); color: #D4AF37;">
-          Award Winning
-         </div>
-        </div>
-       </div>
-      </div><!-- Portfolio Item 3 -->
-      <div class="group relative overflow-hidden rounded-3xl cursor-pointer" style="background: linear-gradient(135deg, #1a1a24 0%, #0d0d12 100%); border: 1px solid rgba(212, 175, 55, 0.2);">
-       <div class="p-8">
-        <div class="flex items-center gap-4 mb-6">
-         <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" style="background: rgba(212, 175, 55, 0.2);">
-          🌿
-         </div>
-         <div>
-          <h4 class="text-white font-bold">EcoFirst Initiative</h4>
-          <p class="text-gray-500 text-sm">Sustainability</p>
-         </div>
-        </div>
-        <p class="text-gray-400 mb-6">Environmental campaign that generated 100M social media impressions worldwide.</p>
-        <div class="flex gap-4">
-         <div class="px-4 py-2 rounded-full text-sm" style="background: rgba(212, 175, 55, 0.1); color: #D4AF37;">
-          Viral Campaign
-         </div>
-         <div class="px-4 py-2 rounded-full text-sm" style="background: rgba(212, 175, 55, 0.1); color: #D4AF37;">
-          UN Recognition
-         </div>
-        </div>
-       </div>
-      </div><!-- Portfolio Item 4 -->
-      <div class="group relative overflow-hidden rounded-3xl cursor-pointer" style="background: linear-gradient(135deg, #1a1a24 0%, #0d0d12 100%); border: 1px solid rgba(212, 175, 55, 0.2);">
-       <div class="p-8">
-        <div class="flex items-center gap-4 mb-6">
-         <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" style="background: rgba(212, 175, 55, 0.2);">
-          🏆
-         </div>
-         <div>
-          <h4 class="text-white font-bold">SportsPro Crisis</h4>
-          <p class="text-gray-500 text-sm">Sports &amp; Entertainment</p>
-         </div>
-        </div>
-        <p class="text-gray-400 mb-6">Managed high-profile crisis, restoring brand reputation within 30 days.</p>
-        <div class="flex gap-4">
-         <div class="px-4 py-2 rounded-full text-sm" style="background: rgba(212, 175, 55, 0.1); color: #D4AF37;">
-          Crisis Resolved
-         </div>
-         <div class="px-4 py-2 rounded-full text-sm" style="background: rgba(212, 175, 55, 0.1); color: #D4AF37;">
-          +85% Sentiment
-         </div>
-        </div>
-       </div>
-      </div>
-     </div>
-    </div>
-   </section><!-- CTA Section -->
-   <section id="contact" class="py-24 px-6 relative overflow-hidden">
-    <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 50%, rgba(212, 175, 55, 0.05) 100%);"></div>
-    <div class="max-w-4xl mx-auto text-center relative z-10">
-     <div class="inline-block p-4 rounded-full mb-8" style="background: rgba(212, 175, 55, 0.1);">
-      <svg width="48" height="48" viewbox="0 0 40 40" fill="#D4AF37"><polygon points="20,2 25,15 38,15 27,24 31,38 20,29 9,38 13,24 2,15 15,15" />
-      </svg>
-     </div>
-     <h2 id="cta-title" class="font-display text-4xl md:text-6xl font-bold text-white mb-6">Ready to Shine?</h2>
-     <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">Let's create something extraordinary together. Your brand's transformation starts with a conversation.</p>
-     <div class="flex flex-col sm:flex-row gap-4 justify-center"><button id="cta-button" class="btn-primary px-10 py-5 rounded-full text-xl font-semibold" style="background: #D4AF37; color: #0A0A0F;"> Schedule a Consultation </button>
-     </div>
-     <p class="text-gray-500 mt-8 text-sm">Free 30-minute strategy session • No commitment required</p>
-    </div>
-   </section><!-- Footer -->
-   <footer class="py-16 px-6 border-t" style="border-color: rgba(212, 175, 55, 0.1);">
-    <div class="max-w-7xl mx-auto">
-     <div class="grid md:grid-cols-4 gap-12 mb-12">
-      <div>
-       <div class="flex items-center gap-2 mb-6">
-        <svg width="32" height="32" viewbox="0 0 40 40" fill="#D4AF37"><polygon points="20,2 25,15 38,15 27,24 31,38 20,29 9,38 13,24 2,15 15,15" />
-        </svg><span class="text-xl font-display font-bold gold-gradient">BStarPR</span>
-       </div>
-       <p class="text-gray-500 text-sm leading-relaxed">Elevating brands to stardom through strategic storytelling and meaningful connections.</p>
-      </div>
-      <div>
-       <h5 class="text-white font-semibold mb-4">Services</h5>
-       <ul class="space-y-2 text-gray-500 text-sm">
-        <li><a href="#" class="hover:text-white transition-colors">Media Relations</a></li>
-        <li><a href="#" class="hover:text-white transition-colors">Crisis Management</a></li>
-        <li><a href="#" class="hover:text-white transition-colors">Brand Strategy</a></li>
-        <li><a href="#" class="hover:text-white transition-colors">Event Management</a></li>
-       </ul>
-      </div>
-      <div>
-       <h5 class="text-white font-semibold mb-4">Company</h5>
-       <ul class="space-y-2 text-gray-500 text-sm">
-        <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
-        <li><a href="#" class="hover:text-white transition-colors">Our Team</a></li>
-        <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
-        <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
-       </ul>
-      </div>
-      <div>
-       <h5 class="text-white font-semibold mb-4">Connect</h5>
-       <div class="flex gap-4"><a href="#" class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110" style="background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3);">
-         <svg width="18" height="18" viewbox="0 0 24 24" fill="#D4AF37"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-         </svg></a> <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110" style="background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3);">
-         <svg width="18" height="18" viewbox="0 0 24 24" fill="#D4AF37"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /> <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="#0A0A0F" /> <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="#0A0A0F" stroke-width="2" />
-         </svg></a> <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110" style="background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3);">
-         <svg width="18" height="18" viewbox="0 0 24 24" fill="#D4AF37"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /> <rect x="2" y="9" width="4" height="12" /> <circle cx="4" cy="4" r="2" />
-         </svg></a>
-       </div>
-      </div>
-     </div>
-     <div class="pt-8 border-t text-center text-gray-600 text-sm" style="border-color: rgba(212, 175, 55, 0.1);">
-      <p>© 2024 BStarPR. All rights reserved. Crafted with ✦ excellence.</p>
-     </div>
-    </div>
-   </footer>
-  </div>
-  <script>
-    const defaultConfig = {
-      hero_title: 'Elevate Your Brand<br><span class="gold-gradient">To Stardom</span>',
-      hero_subtitle: 'Strategic PR solutions that transform businesses into iconic brands',
-      about_title: 'Your Story, Amplified',
-      about_description: 'BStarPR is a boutique public relations agency dedicated to crafting compelling narratives that resonate. We blend strategic thinking with creative storytelling to position your brand at the forefront of your industry.',
-      services_title: 'Our Services',
-      cta_title: 'Ready to Shine?',
-      cta_button: 'Schedule a Consultation',
-      background_color: '#0A0A0F',
-      surface_color: '#1a1a24',
-      text_color: '#ffffff',
-      primary_action_color: '#D4AF37',
-      secondary_action_color: '#9CA3AF',
-      font_family: 'DM Sans',
-      font_size: 16
-    };
+<!DOCTYPE html>
 
-    async function onConfigChange(config) {
-      const heroTitle = document.getElementById('hero-title');
-      const heroSubtitle = document.getElementById('hero-subtitle');
-      const aboutTitle = document.getElementById('about-title');
-      const aboutDescription = document.getElementById('about-description');
-      const servicesTitle = document.getElementById('services-title');
-      const ctaTitle = document.getElementById('cta-title');
-      const ctaButton = document.getElementById('cta-button');
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BStarPR | Celestial Editorial &amp; Elite PR</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">const phrases = ["ADVOCATE", "THE VAULT", "THE FORMULA", "AURA ARCHITECT", "HISTORIANS", "LEGACY DEVELOPERS", "BRAND PRESERVATIONISTS", "PREVENTER", "VOCALIZER"];
+        let currentIdx = 0;
+        const headlineEl = document.getElementById('hero-headline');
 
-      if (heroTitle) heroTitle.innerHTML = config.hero_title || defaultConfig.hero_title;
-      if (heroSubtitle) heroSubtitle.textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
-      if (aboutTitle) aboutTitle.textContent = config.about_title || defaultConfig.about_title;
-      if (aboutDescription) aboutDescription.textContent = config.about_description || defaultConfig.about_description;
-      if (servicesTitle) servicesTitle.textContent = config.services_title || defaultConfig.services_title;
-      if (ctaTitle) ctaTitle.textContent = config.cta_title || defaultConfig.cta_title;
-      if (ctaButton) ctaButton.textContent = config.cta_button || defaultConfig.cta_button;
+        function updateHeadline() {
+            if(!headlineEl) return;
+            headlineEl.style.transition = 'opacity 0.4s ease-in-out, transform 0.4s ease-in-out';
+            headlineEl.style.opacity = 0;
+            headlineEl.style.transform = 'translateY(10px)';
 
-      const bgColor = config.background_color || defaultConfig.background_color;
-      const textColor = config.text_color || defaultConfig.text_color;
-      const primaryColor = config.primary_action_color || defaultConfig.primary_action_color;
-      const fontFamily = config.font_family || defaultConfig.font_family;
-      const baseSize = config.font_size || defaultConfig.font_size;
+            setTimeout(() => {
+                currentIdx = (currentIdx + 1) % phrases.length;
+                const text = phrases[currentIdx];
+                headlineEl.textContent = text;
+                
+                // Reduce font size specifically for long phrases
+                if (text === 'BRAND PRESERVATIONISTS') {
+                    headlineEl.style.fontSize = '1.75rem';
+                } else {
+                    headlineEl.style.fontSize = '';
+                }
 
-      document.body.style.fontFamily = `${fontFamily}, DM Sans, sans-serif`;
-      document.getElementById('app-wrapper').style.background = bgColor;
-     
-      document.querySelectorAll('h1, h2, h3, h4').forEach(el => {
-        el.style.color = textColor;
-      });
-
-      document.querySelectorAll('.btn-primary').forEach(btn => {
-        btn.style.background = primaryColor;
-      });
-    }
-
-    function mapToCapabilities(config) {
-      return {
-        recolorables: [
-          {
-            get: () => config.background_color || defaultConfig.background_color,
-            set: (value) => { config.background_color = value; window.elementSdk.setConfig({ background_color: value }); }
-          },
-          {
-            get: () => config.surface_color || defaultConfig.surface_color,
-            set: (value) => { config.surface_color = value; window.elementSdk.setConfig({ surface_color: value }); }
-          },
-          {
-            get: () => config.text_color || defaultConfig.text_color,
-            set: (value) => { config.text_color = value; window.elementSdk.setConfig({ text_color: value }); }
-          },
-          {
-            get: () => config.primary_action_color || defaultConfig.primary_action_color,
-            set: (value) => { config.primary_action_color = value; window.elementSdk.setConfig({ primary_action_color: value }); }
-          },
-          {
-            get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
-            set: (value) => { config.secondary_action_color = value; window.elementSdk.setConfig({ secondary_action_color: value }); }
-          }
-        ],
-        borderables: [],
-        fontEditable: {
-          get: () => config.font_family || defaultConfig.font_family,
-          set: (value) => { config.font_family = value; window.elementSdk.setConfig({ font_family: value }); }
-        },
-        fontSizeable: {
-          get: () => config.font_size || defaultConfig.font_size,
-          set: (value) => { config.font_size = value; window.elementSdk.setConfig({ font_size: value }); }
+                headlineEl.style.opacity = 1;
+                headlineEl.style.transform = 'translateY(0)';
+            }, 400);
         }
-      };
-    }
 
-    function mapToEditPanelValues(config) {
-      return new Map([
-        ['hero_title', config.hero_title || defaultConfig.hero_title],
-        ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
-        ['about_title', config.about_title || defaultConfig.about_title],
-        ['about_description', config.about_description || defaultConfig.about_description],
-        ['services_title', config.services_title || defaultConfig.services_title],
-        ['cta_title', config.cta_title || defaultConfig.cta_title],
-        ['cta_button', config.cta_button || defaultConfig.cta_button]
-      ]);
-    }
+        setInterval(updateHeadline, 3500);
 
-    // Mobile menu toggle
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    let menuOpen = false;
-
-    mobileMenuBtn.addEventListener('click', () => {
-      menuOpen = !menuOpen;
-      mobileMenu.classList.toggle('hidden', !menuOpen);
-    });
-
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        menuOpen = false;
-        mobileMenu.classList.add('hidden');
-      });
-    });
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("scroll-tracker").style.width = scrolled + "%";
+        };</script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "gold": "#D4AF37",
+                        "gold-dim": "#A6892C",
+                        "gold-light": "#F9E4A0",
+                        "background": "#0A0510",
+                        "surface": "#1A1425",
+                        "surface-variant": "#251B35",
+                        "primary": "#D4AF37",
+                        "on-surface": "#F5F0FF",
+                        "on-surface-variant": "#C5B9D8",
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.75rem", "lg": "1.5rem", "xl": "2.5rem", "full": "9999px"},
+                },
+            },
         }
-      });
-    });
+    </script>
+<style>
+        body {
+            background-color: #020105;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    // Initialize SDK
-    if (window.elementSdk) {
-      window.elementSdk.init({
-        defaultConfig,
-        onConfigChange,
-        mapToCapabilities,
-        mapToEditPanelValues
-      });
-    }
-  </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d3d5242735075fc',t:'MTc3MjA4NjY2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
-</html>
+        /* Dynamic Starfield Background */
+        .starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 30%, #1a0b2e 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, #0d061a 0%, transparent 50%),
+                linear-gradient(180deg, #05020a 0%, #0a0510 50%, #000000 100%);
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
+            animation: shoot var(--duration) infinite linear;
+            opacity: 0;
+        }
+
+        @keyframes shoot {
+            0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 0; }
+            5% { opacity: 1; }
+            15% { transform: translateX(400px) translateY(400px) rotate(-45deg); opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        .premium-glass {
+            background: rgba(26, 20, 37, 0.75);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(212, 175, 55, 0.1)
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #F9E4A0 0%, #D4AF37 50%, #A6892C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none }
+
+        /* Marquee Animation */
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-content {
+            display: flex;
+            width: max-content;
+            animation: scroll 30s linear infinite;
+        }
+
+        /* Scroll Tracker */
+        #scroll-tracker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #D4AF37, #F9E4A0);
+            z-index: 100;
+            width: 0%;
+            transition: width 0.1s;
+        }
+    
+        @keyframes pulse-opacity {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+        .animate-pulse-slow {
+            animation: pulse-opacity 5s ease-in-out infinite;
+        }
+    
+        @keyframes flash-opacity {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+        .animate-flash-slow {
+            animation: flash-opacity 3s ease-in-out infinite;
+        }
+    
+        @keyframes cosmic-glow-pulse {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(191, 0, 255, 0.4)) drop-shadow(0 0 40px rgba(212, 175, 55, 0.2)); transform: scale(1); }
+            50% { filter: drop-shadow(0 0 35px rgba(191, 0, 255, 0.6)) drop-shadow(0 0 60px rgba(212, 175, 55, 0.4)); transform: scale(1.05); }
+        }
+        .animate-cosmic-glow {
+            animation: cosmic-glow-pulse 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="font-body text-on-surface selection:bg-gold/30">
+<div id="scroll-tracker"></div>
+<!-- Dynamic Starfield Elements -->
+<div class="starfield">
+<div class="star" style="top: 5%; left: 15%; width: 2px; height: 2px; --duration: 3.2s;"></div>
+<div class="star" style="top: 15%; left: 85%; width: 1px; height: 1px; --duration: 4.5s;"></div>
+<div class="star" style="top: 25%; left: 35%; width: 2px; height: 2px; --duration: 2.8s;"></div>
+<div class="star" style="top: 45%; left: 55%; width: 1.5px; height: 1.5px; --duration: 5.1s;"></div>
+<div class="star" style="top: 65%; left: 10%; width: 1px; height: 1px; --duration: 3.9s;"></div>
+<div class="star" style="top: 85%; left: 75%; width: 2.5px; height: 2.5px; --duration: 6.2s;"></div>
+<div class="star" style="top: 92%; left: 25%; width: 1.2px; height: 1.2px; --duration: 4.1s;"></div>
+<div class="star" style="top: 12%; left: 62%; width: 1px; height: 1px; --duration: 5.5s;"></div>
+<div class="star" style="top: 38%; left: 92%; width: 2px; height: 2px; --duration: 3.7s;"></div>
+<div class="star" style="top: 58%; left: 42%; width: 1.5px; height: 1.5px; --duration: 4.8s;"></div>
+<div class="star" style="top: 72%; left: 88%; width: 1px; height: 1px; --duration: 3.1s;"></div>
+<div class="star" style="top: 22%; left: 48%; width: 1.8px; height: 1.8px; --duration: 4.4s;"></div>
+<div class="star" style="top: 8%; left: 32%; width: 1px; height: 1px; --duration: 6.8s;"></div>
+<div class="star" style="top: 66%; left: 22%; width: 2px; height: 2px; --duration: 5.2s;"></div>
+<div class="star" style="top: 44%; left: 78%; width: 1.2px; height: 1.2px; --duration: 4.6s;"></div>
+<div class="shooting-star" style="top: 10%; left: 70%; --duration: 7s; animation-delay: 1s;"></div>
+<div class="shooting-star" style="top: 50%; left: 20%; --duration: 10s; animation-delay: 5s;"></div>
+<div class="shooting-star" style="top: 80%; left: 40%; --duration: 12s; animation-delay: 2s;"></div>
+<div class="shooting-star" style="top: 30%; left: 10%; --duration: 8s; animation-delay: 4s;"></div>
+</div>
+<!-- TopAppBar -->
+<nav class="fixed top-0 w-full z-50 premium-glass border-b border-gold/10 px-6 py-4 grid grid-cols-3 items-center">
+<div class="flex items-center">
+</div>
+<div class="flex items-center justify-center gap-2">
+<img alt="BStarPR Logo" class="w-8 h-8 object-contain" src="https://lh3.googleusercontent.com/aida/ADBb0uimQJc1Ksb_suvhADC3Yh5k0RMl0ElZt68VYjEL169RFDtLXf-mlnf7YioOYf62CgPFAWG-dWas6wRD4r4Kk6g15Yz_SO5GWsQ4RdwX8dpDqmDH91NMXVqAxgQpHU2_RgMJ79xKso8cCJA_gLtNoWBGgb3K-3i5nMH8al2__Y7vvDbY6POsBHwJwKvRvFHBc0oQ6NHBhXdQtT5uTh4tme9msVgxZxJw6ZqQpftwvhx_9D8OoZi5Ug-Kac9Tqst_9iDzHC-IYnLTKE8" style=""/>
+<div class="text-xl font-bold tracking-tighter gold-gradient-text font-headline" style="">BStarPR</div>
+</div>
+<div class="flex items-center justify-end">
+</div>
+</nav>
+<main class="relative pt-24 pb-40">
+<!-- Hero Section -->
+<section class="px-6 py-12 flex flex-col items-center text-center relative">
+<div class="relative z-10 space-y-8">
+<img alt="BStarPR Hero Logo" class="w-40 h-40 mx-auto mb-4 animate-cosmic-glow transition-all duration-700" src="https://lh3.googleusercontent.com/aida/ADBb0ugHPvf6Rp0FFHR-8AeSEDYFQCnCnRwlYgnlexPc5WTJOZteFNe_bLqrj4d4M41CS-x7HJf5oZV-RVXLNBrqnyUIOcyFVtT1KUFiLh57__rKb19v6HGunUZILz2L0gMTNFB9XXOCRS8ogIz4cKWSL91iQj65ar_2mUtW11bDF9c-_CzmLiLDE_UBP98wbGwkblHzXDBIJpthL0wump-Xm6kAq6qU8MU8wg0iZ8x5_fkGFdF_lWzeF1yedcWp5C6AuWWq9SfUpTrUR_Q" style=""/>
+<div class="space-y-4">
+<span class="inline-block px-3 py-1 rounded-full border border-gold/30 bg-gold/5 text-gold text-[10px] font-bold tracking-[0.3em] uppercase" style="">new, now, and next</span>
+<h1 class="font-headline font-bold leading-[1.1] tracking-tight gold-gradient-text animate-flash-slow opacity-70 uppercase text-4xl" id="hero-headline" style="transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out; opacity: 1; transform: translateY(0px);">VOCALIZER</h1>
+<p class="text-base mx-auto leading-relaxed font-light text-white max-w-2xl tracking-wide" style="text-align: center;">BStar PR is the premiere publicity &amp; marketing firm for the New, Now, and Next. We don't just amplify our clients; <span class="font-bold" style="text-shadow: rgb(191, 0, 255) 0px 0px 10px, rgba(191, 0, 255, 0.4) 0px 0px 20px;">we are GenZ aura architects &amp; strategists</span> that specialize in storytelling across both social media and traditional media. <span class="font-bold" style="text-shadow: rgb(191, 0, 255) 0px 0px 10px, rgba(191, 0, 255, 0.4) 0px 0px 20px;">We are more than campaign ignighters; we are a team of historians, legacy developers, and brand preservationists.</span></p>
+</div>
+<div class="flex flex-col gap-4 w-full max-w-[280px] mx-auto">
+<button class="from-primary/80 to-primary px-8 py-4 rounded-full font-headline font-bold text-white shadow-[0_10px_30px_rgba(191,0,255,0.3)] active:scale-95 transition-all uppercase tracking-wider" style="">
+        EXPLORE UNIVERSE
+    </button>
+<button class="bg-gradient-to-r from-gold-dim via-gold to-gold-light px-8 py-4 rounded-full font-headline font-bold text-background shadow-[0_10px_30px_rgba(212,175,55,0.2)] active:scale-95 transition-all uppercase tracking-wider" style="">
+        START YOUR JOURNEY
+    </button>
+</div>
+</div>
+</section>
+<!-- Media Marquee -->
+<section class="py-8 border-y border-gold/5 bg-surface/30 backdrop-blur-sm overflow-hidden">
+<div class="marquee-content gap-12 items-center">
+<span class="text-gold/40 font-headline font-bold text-xl tracking-tighter uppercase px-4" style="">FORBES</span>
+<span class="text-gold/40 font-headline font-bold text-xl tracking-tighter uppercase px-4" style="">VOGUE</span>
+<span class="text-gold/40 font-headline font-bold text-xl tracking-tighter uppercase px-4" style="">ESSENCE</span>
+<span class="text-gold/40 font-headline font-bold text-xl tracking-tighter uppercase px-4" style="">VARIETY</span>
+<span class="text-gold/40 font-headline font-bold text-xl tracking-tighter uppercase px-4" style="">black enterprise</span>
+<span class="text-gold/40 font-headline font-bold text-xl tracking-tighter uppercase px-4" style="">COMPLEX</span>
+<span class="text-gold/40 font-headline font-bold text-xl tracking-tighter uppercase px-4" style="">FORBES</span>
+<span class="text-gold/40 font-headline font-bold text-xl tracking-tighter uppercase px-4" style="">VOGUE</span>
+<span class="text-gold/40 font-headline font-bold text-xl tracking-tighter uppercase px-4" style="">WIRED</span>
+<span class="text-gold/40 font-headline font-bold text-xl tracking-tighter uppercase px-4" style="">VARIETY</span>
+<span class="text-gold/40 font-headline font-bold text-xl tracking-tighter uppercase px-4" style="">GQ</span>
+<span class="text-gold/40 font-headline font-bold text-xl tracking-tighter uppercase px-4" style="">COMPLEX</span>
+</div>
+</section>
+<!-- Project Universe -->
+<section class="py-16">
+<div class="px-6 mb-12 flex items-center justify-between">
+<h2 class="font-headline text-3xl font-bold tracking-tight" style="">PROJECTS 🪐</h2>
+<span class="text-gold text-[10px] font-black tracking-widest uppercase border-b border-gold/30 pb-1" style="">View All</span>
+</div>
+<div class="flex overflow-x-auto pb-8 gap-8 px-6 no-scrollbar snap-x">
+<div class="snap-center group min-w-[65vw]">
+<div class="relative rounded-3xl overflow-hidden mb-6 p-[1px] bg-gradient-to-br from-gold/30 to-transparent aspect-video">
+<img alt="Cyber Szn" class="w-full h-full object-cover rounded-[1.45rem] group-hover:scale-105 transition-transform duration-1000" src="https://lh3.googleusercontent.com/aida/ADBb0ui-tKhzONQUe3MIThrRGJ3reynRto_LvKHFF7j8gvFggubyqExxqNbwEDzd4_FBVGvhEZMTf81gSUCDt-ZdgZjQGT2MMOuyQO7UxZeF_kyZHV1nl5Dqj1V8cn3aFgETnZ-yUy0P3mTRZ0-mWepZMz4APePyfpzy_CfCJ7wLjsBEmaDK8ax67IE03QhRXMpTUuSAiJ5njzceqSPgSF4ZXMvLUOTmqw56MnxExVRALhBN2Rja_KhIVixf94FcqAgzeOCebg9C06ODswc" style=""/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<div class="absolute bottom-6 left-6">
+<span class="bg-background/60 text-gold text-[10px] font-bold px-4 py-1.5 rounded-full backdrop-blur-md border border-gold/30" style="">Publicity &amp; Stream Support</span>
+</div>
+</div>
+<h3 class="font-headline font-bold mb-2 tracking-tight text-xl" style="">iShowSpeed Goes to Africa</h3>
+<p class="text-on-surface-variant font-light text-xs" style="">We consulted, provided publicity services, and international realtions during IShowSpeed's trip to Africa. The impactful &amp; iconic ending to his trip to Ghana stood out as his favorite scene on the trip which our team directly created the strategy  to aid the finale and ensure it was heard around the world.<span style="font-size: 0.75rem;"> </span></p><div><span style="font-size: 0.75rem;"><br/></span></div><div><span class="" style="font-size: 0.75rem;">Hamamat and her staff at The Shea Butter Museum  excuted our ideas seemesly and with the support of the online attraction from Speed's clipping server, our team was able to get ahead of the momentum to publicize the stories from stream and get global reach with press to recap his impact in Africa in addition to facilitate additional press for Ghana and Africa's shea butter. </span></div><p class="" style=""></p>
+<div class="text-[10px] text-on-surface-variant/60 font-normal leading-relaxed mt-4" style="">
+    Our work in addition to IShowSpeeds' and many others' locally was truly felt and seen globally. 🇬🇭
+</div>
+</div>
+<div class="snap-center group min-w-[65vw]">
+<div class="relative rounded-3xl overflow-hidden mb-6 p-[1px] bg-gradient-to-br from-gold/30 to-transparent aspect-video">
+<img alt="Variety x Live Nation Urban Investment" class="w-full h-full object-cover rounded-[1.45rem] group-hover:scale-105 transition-transform duration-1000" src="https://lh3.googleusercontent.com/aida/ADBb0ugVeLnujZXPo-zdmPRDCPf-UbmZT1PqnlnBZ3FEp0eP3QHOG24yfEGnDXO8aQHZrGrcmsg0Vzdu8N6JUGImEEWGI3u-8sJqsqwIvt3sQI_wZu87iKk4fp7nV0APQHB51Ma5jJgEBrNsW-kllHxjPbJEH8SstPyKiiMEeoU0_cAErm99-ULZw5RLdiogUfK6o9PE9jpi2BeASqS5nPlw-4159OHjp4eC5_TqN0rbXvkdYuySi26hQcsdIMGxXdyRyqTdIwxGEojwZNU" style=""/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<div class="absolute bottom-6 left-6"><span class="bg-background/60 text-gold text-[10px] font-bold px-4 py-1.5 rounded-full backdrop-blur-md border border-gold/30" style="">Investment Strategies &amp; Publicity</span></div>
+</div>
+<h3 class="font-headline font-bold mb-2 tracking-tight text-xl" style="">Live Nation Urban Announcement</h3>
+<p class="text-on-surface-variant font-light text-xs" style="">As the strategic publicist behind Cxmmunity Media, BStarPR has been instrumental in amplifying Cxmmunity’s voice, cultivating national awareness and meaningful industry conversation that helped unlock major sponsorships, strategic investments, and cultural partnerships.</p>
+</div>
+</div>
+</section>
+<!-- Tools of the Trade & Architects -->
+<section class="px-6 py-16 space-y-12">
+<div class="flex items-center gap-4">
+<h2 class="font-headline text-3xl font-bold tracking-tight" style="">CORE ARSENAL</h2>
+<div class="h-[1px] flex-grow bg-gradient-to-r from-gold/40 to-transparent"></div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="premium-glass p-6 rounded-2xl flex flex-col items-center text-center gap-3">
+<span class="material-symbols-outlined text-gold text-3xl" style="">insights</span>
+<h4 class="text-xs font-bold tracking-widest uppercase" style="">Analysis &amp; Strategy</h4>
+</div>
+<div class="premium-glass p-6 rounded-2xl flex flex-col items-center text-center gap-3">
+<span class="material-symbols-outlined text-gold text-3xl" style="">campaign</span>
+<h4 class="text-xs font-bold tracking-widest uppercase" style="">Global PR &amp; Internal Communications</h4>
+</div>
+<div class="premium-glass p-6 rounded-2xl flex flex-col items-center text-center gap-3">
+<span class="material-symbols-outlined text-gold text-3xl" style="">diamond</span>
+<h4 class="text-xs font-bold tracking-widest uppercase" style="">Luxury Execution</h4>
+</div>
+<div class="premium-glass p-6 rounded-2xl flex flex-col items-center text-center gap-3">
+<span class="material-symbols-outlined text-gold text-3xl" style="">hub</span>
+<h4 class="text-xs font-bold tracking-widest uppercase" style="">Networking</h4>
+</div>
+</div>
+<!-- Redesigned Architects Section matching IMAGE_13 -->
+<div class="pt-20">
+<div class="flex flex-col lg:flex-row gap-12 items-start">
+<!-- Left: Large Headshot Area -->
+<div class="w-full lg:w-1/2 aspect-square lg:aspect-[4/5] relative rounded-[2.5rem] overflow-hidden border border-gold/20 shadow-[0_0_50px_rgba(212,175,55,0.1)]">
+<img alt="Julian Vane - Founder" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0ugJDFxpjClNWX6VdUj-W26aYrVeE8Yy8JjJ7I_It7QbIQ4V4Hi2xZ6puFoW9a0hdfu38qY8dw9QwrC3oaohEFgcRpEZYVgQMgKQodcyEn0tty8jB577h0AN2u4JgKkxnshtSguLtwlNqgqnb3IZgEB0w-VoM4d1-hg-FTkrq7pf9MY5EkTBGPTtjVTyip1g5hHn14rvgp-u6ErjlyrV5gSh9alFuXNzwnsYhsFS_gSB_L-9SzSnzT491sVmVrKUDMal1reh6uvuXU0" style=""/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60"></div>
+<div class="absolute top-8 left-8">
+<span class="text-gold/80 text-[10px] font-bold tracking-[0.4em] uppercase" style="">Founder</span>
+</div>
+</div>
+<!-- Right: Content Area -->
+<div class="w-full lg:w-1/2 space-y-10">
+<div class="space-y-6">
+<span class="text-gold text-[10px] font-black tracking-[0.4em] uppercase" style="">Visionary</span>
+<h2 class="font-headline text-5xl lg:text-6xl font-bold tracking-tight leading-tight" style="">
+                    The Mastermind Behind Your <span class="gold-gradient-text" style="">Aura.</span>
+</h2>
+<div class="space-y-4 text-on-surface-variant font-light leading-relaxed">
+<p class="" style=""><strong data-end="24" data-start="0">Brandy Merriweather:</strong> <span class="hover:entity-accent entity-underline inline cursor-pointer align-baseline" style="">Brandy Merriweather</span> is a Gen Z publicist and cultural strategist known for shaping narratives at the intersection of identity, tech, and influence. Her work spans brands like <span class="hover:entity-accent entity-underline inline cursor-pointer align-baseline" style="">ESSENCE</span>, <span class="hover:entity-accent entity-underline inline cursor-pointer align-baseline" style="">Rap Snacks</span>, and <span class="hover:entity-accent entity-underline inline cursor-pointer align-baseline" style="">Microsoft</span>, as well as rising digital creators, all while centering underrepresented voices. Recognized by <span class="hover:entity-accent entity-underline inline cursor-pointer align-baseline" style="">Forbes</span> 30 Under 30 and honored in multiple cultural and business circles, she represents a new guard of PR—one that blends cultural fluency with strategic precision.</p>
+<p class="" style=""><span class="hover:entity-accent entity-underline inline cursor-pointer align-baseline" style="">BStarPR</span> operates as a next-generation communications firm rooted in influence, access, and cultural currency. The agency moves beyond traditional PR, crafting campaigns that live at the convergence of media, digital ecosystems, and experiential storytelling. With a client base spanning emerging startups to established brands, BStarPR stands for amplification of the “new, now, and next”—elevating diverse voices while redefining how visibility and relevance are built in a hyper-connected world.</p>
+</div>
+</div>
+<!-- Logo Strip -->
+<div class="space-y-4">
+<p class="text-[10px] font-bold text-gold/60 tracking-widest uppercase" style="">AGENCY RECOGNIZED IN</p>
+<div class="flex flex-wrap items-center gap-8 opacity-40 grayscale hover:grayscale-0 transition-all">
+<span class="font-headline font-bold text-sm tracking-tighter uppercase" style="">FORBES</span>
+<span class="font-headline font-bold text-sm tracking-tighter uppercase" style="">ESSENCE</span>
+<span class="font-headline font-bold text-sm tracking-tighter uppercase" style="">ATLANTA BUSINESS JOURNAL</span>
+<span class="font-headline font-bold text-sm tracking-tighter uppercase" style="">BUSINESS INSIDER</span>
+<span class="font-headline font-bold text-sm tracking-tighter uppercase" style="">ROLLING OUT</span>
+</div>
+</div>
+<!-- Analytics Cards -->
+<div class="grid grid-cols-3 gap-4">
+<div class="premium-glass p-5 rounded-2xl border border-gold/10 text-center space-y-1">
+<div class="font-headline text-2xl font-bold text-gold-light" style="">45+</div>
+<div class="text-[9px] uppercase tracking-widest text-on-surface-variant/60 font-bold" style="">campaigns</div>
+</div>
+<div class="premium-glass p-5 rounded-2xl border border-gold/10 text-center space-y-1">
+<div class="font-headline text-2xl font-bold text-gold-light" style="">12</div>
+<div class="text-[9px] uppercase tracking-widest text-on-surface-variant/60 font-bold" style="">Awards</div>
+</div>
+<div class="premium-glass p-5 rounded-2xl border border-gold/10 text-center space-y-1">
+<div class="font-headline text-2xl font-bold text-gold-light" style="">Top 3</div>
+<div class="text-[9px] uppercase tracking-widest text-on-surface-variant/60 font-bold" style="">PR Agency FOR CREATORS</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Creator Universe Section -->
+<section class="px-6 py-16 bg-gold/5 border-y border-gold/10">
+<div class="text-center mb-12">
+<h2 class="font-headline text-3xl font-bold tracking-tight gold-gradient-text" style="">CREATOR UNIVERSE</h2>
+<p class="text-xs tracking-[0.3em] uppercase text-gold/60 mt-2" style="">The Faces of the Future we impacted</p><div class="" style=""><br/></div><p class="" style=""></p>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div class="space-y-2">
+<div class="aspect-square rounded-2xl overflow-hidden border border-gold/20">
+<img alt="Creator" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0ug9RxabaBQx4Kh0FCYJ1hBI4mlgLCOQjWvUKyCh29TF6c5cfG2_YBm5mrNhDTXIlD_Jf5jm2LcK-1e4kEUnjSHQBvntMiMgi_JXtyywqRZ8QOP2XZv9m2yI2y81EhQqws0XDXlc-K89VMMcM2INu3oifFry80MMuduGiUOoRnNKalDF3CDV1Zu7veF0-zJWh-jPiZqlZA0Ui_w1mJG3l6SV3IAWNkrtgQGyeO7UGyl9xO_vcen_VDRv21QkRvFpg2qRT1-GFScblQ" style=""/>
+</div>
+<div class="text-[8px] font-bold text-center tracking-widest uppercase text-on-surface-variant" style="">@QueenKhamyra</div>
+</div>
+<div class="space-y-2">
+<div class="aspect-square rounded-2xl overflow-hidden border border-gold/20">
+<img alt="Creator" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0ujXDhE59M2GvszRhyS3h3NljrUNCuDjsomltJ7zZjjl9EWTqhCzWotgbdXopijKJz2qUoJSgit7Mn5ILGKUQSDLhnXmdquhlkCTiQ8_zkOHGNGuMMG_-gDPkG6irYPMvcgVx8qCqEtCbBwF5Q78oAgxr-77HsZICk4ILVinxXowibdFNppvxTAvUPB4zyE7ETS9uKBWKRsVeieUGxmeBbv0D8ewygPDhRrtTPbb7SZjXwZEACqlD9vrsDU-GREm_kbv_9Qd_u2b-cA" style=""/>
+</div>
+<div class="text-[8px] font-bold text-center tracking-widest uppercase text-on-surface-variant flex items-center justify-center" style=""><img alt="Twitch Icon" class="w-3 h-3 inline-block mr-1" src="https://lh3.googleusercontent.com/aida/ADBb0uhwKyUdSotK5wnbhqvzDa5E2nE_gqex9LDhihpP2iMBwQAAJHNETQ_bzrLMW3kd6jRWwik21diKpA5R4h_N0iJC9VO9HpuDuRMXwsWU1RjA-PYEggxjaeOIHybOkLSiTOwKa2ymJTOrKNIRsuCMZcbboEzqE6JM15X_Jszui50esbXYnJMOK5_RReOLwKxp_PqYpYydyGdey32G8UiXbJsI3lEK_lpZrM8Kyv4aCi_yXt3n54zf5Y9m27DKWJbpYeQRzCiInEzJLA" style="vertical-align: middle;"/>@Reginald</div>
+</div>
+<div class="space-y-2">
+<div class="aspect-square rounded-2xl overflow-hidden border border-gold/20">
+<img alt="Creator" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0ugGiRwICSXT8Bdg-mGp9CiKoCM1wSaTvBWJfv-h5tfJFhxPLpkbYsbf0UFRmxqD4yTwbum31DJIj91vJi5d2WbSBLV55pLdVAmsoIXpibjhkQ-rPVI2glVb_yLkLfXqSqapOO8_HslfQyH00Fks8Hnmwmfia5hk1B0Uv3tWaw1AVT0OxQJRLkesPLwu5pcz-XY16N-zXcSsfRN8CEkkb2CPBbdLiQlJHjyBGkN35lZh6wcu0oLf0MAeC37Dp7dOYEqTxqAX85JhMRY" style=""/>
+</div>
+<div class="text-[8px] font-bold text-center tracking-widest uppercase text-on-surface-variant" style="">@IMdAVISSS</div>
+</div>
+</div>
+</section>
+<!-- Transmissions -->
+<section class="px-6 py-16">
+<div class="text-center mb-10">
+<h2 class="font-headline text-3xl font-bold tracking-tight mb-2" style=""><br/></h2>
+<p class="text-gold/60 text-xs tracking-widest uppercase" style="">Live from the cosmic grid</p>
+</div>
+<div class="premium-glass rounded-2xl overflow-hidden border border-gold/20 max-w-md mx-auto shadow-[0_0_30px_rgba(191,0,255,0.1)]">
+<!-- IG Header -->
+<div class="p-4 flex items-center justify-between border-b border-gold/10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full p-[2px] bg-gradient-to-tr from-[#BF00FF] via-[#D4AF37] to-[#F9E4A0]">
+<img alt="bstarpr" class="w-full h-full rounded-full border border-background object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0uj4bXBN5DltN7zcBlHmu7bhR6lz-rY65wEoJfC_nnRp3rvubVMSb-DzgWhRw5JLEhP0ypsTCNIeGba1EJIFF1ja1q5O4jO1Mi3RaHfMBqcWh4oqtW448NSDDUyzyCySHm5n155-GNjFlnwuIiegN03qTjYIz5O0K4ddunQD0_QWIAYFPkCZ9D5afqHvAlH3PAg6G7oxu_3Kn302trGTGjZD4U2VuOCuu3HsLwI_UVyHYKQO1fYjaaTgNMR26hQEnOanpWYy7llc-w" style=""/>
+</div>
+<div>
+<div class="flex items-center gap-1">
+<span class="text-sm font-bold" style="">bstarpr</span>
+<span class="material-symbols-outlined text-blue-400 text-[10px]" style='font-variation-settings: "FILL" 1;'>verified</span>
+</div>
+<p class="text-[10px] text-on-surface-variant font-medium" style="">See everyday moments from your close friends.</p>
+</div>
+</div>
+<button class="text-gold text-xs font-bold px-3 py-1 rounded-full border border-gold/20 hover:bg-gold/10 transition-colors" style="">Follow</button>
+</div>
+<!-- Feed Content (Reference IMAGE_90) -->
+<div class="relative bg-white/5 py-8 flex flex-col items-center overflow-hidden">
+<!-- Mock UI inspired by screenshot -->
+<div class="relative w-[280px] h-[350px] transform scale-90 sm:scale-100">
+<!-- Background layered images -->
+<div class="absolute left-0 top-10 w-40 h-60 rounded-xl overflow-hidden rotate-[-12deg] opacity-40 border border-white/20">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpyhHCIUey5zqB2IkyO0JwDaB6MVkSMIi27ixqkfhKoRB6qN_vAZOIpKGIK71rXyKy-jpodDadn4XOuIH3M521rQkYBCpkAe3R8j5hRs283Nzm98XFVQVIGEnBoOZoiKBWZGZMDN8hxRvEED6yLCaEbnhLwjtzx12SgtpE07Q4Iy5lE0vTK1w1feKdms-9II08R0sWjEkxvHM_k1XqgHbZkMUsbCYFB53M_tZY_RDSi5NNbRF19zYCXSCaJb84W-rhEdDRxSUgdudM" style=""/>
+</div>
+<!-- Main Image Card -->
+<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-80 rounded-2xl overflow-hidden border-2 border-white/30 shadow-2xl z-20">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0ujoe_WYf-bWYi0S0lH7W0sy05kes8TnGaxykCy9a2uaYuToxeBpNiqKcJ--D8ltMo_7KP2tbYQ8jBxSSqqwh1cpyL1T6bzcWn1FR3TQuWQ_m0EMG45oX-a1q_hmURhQgJrUgxh1uFS0mVvwpwGwYotC3kMQrgEwM5qfBrZr09DRNRFSDn2N3gOSRdhjUJclkLwn4qGH5htQJljI9Lp_SRq7Flb2uvu2AZHcKYFAU30V-fXD8-s2w67stk9POM68HVlIFyl7UK3usWY" style=""/>
+<div class="absolute bottom-4 left-4 right-4 h-1 bg-white/30 rounded-full">
+<div class="w-1/2 h-full bg-white rounded-full"></div>
+</div>
+</div>
+<!-- Emoji/Reaction Overlay -->
+<div class="absolute -left-4 top-1/2 z-30">
+<div class="bg-white/10 backdrop-blur-md p-2 rounded-full border border-white/20">
+<span class="text-xl" style="">🔮🤯</span>
+</div>
+</div>
+</div>
+</div>
+<!-- IG Interactions -->
+<div class="p-4">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-2xl text-gold" style="">favorite</span>
+<span class="material-symbols-outlined text-2xl" style="">chat_bubble</span>
+<span class="material-symbols-outlined text-2xl" style="">send</span>
+</div>
+<span class="material-symbols-outlined text-2xl" style="">bookmark</span>
+</div>
+<div class="space-y-2">
+<p class="text-sm leading-relaxed" style="">
+<span class="font-bold" style="">bstarpr</span> For the the New, Now, and Next. 🌌 The frequency of influence is shifting. Join the cosmic evolution. ✨ <br/>
+<span class="text-gold/80" style="">#BStarPR #AuraArchitect #GetFamiliar</span></p>
+<div class="flex items-center justify-between">
+<p class="text-[9px] text-on-surface-variant uppercase tracking-widest" style="">2 HOURS AGO</p>
+<div class="flex items-center gap-1 opacity-60">
+<span class="text-[10px] font-bold" style="">Meta</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="px-6 py-24">
+<div class="premium-glass p-10 rounded-3xl relative overflow-hidden border border-gold/20">
+<h2 class="font-headline text-3xl font-bold mb-4 gold-gradient-text text-center" style="">INITIATE CONTACT</h2><p class="text-gold/60 text-xs tracking-[0.3em] uppercase text-center mt-2 mb-8" style="">Slide in our DMs 💬</p>
+<form class="space-y-6">
+<div class="space-y-1">
+<label class="block text-[10px] font-bold tracking-widest text-gold uppercase ml-1" style="">Identity</label>
+<input class="w-full bg-background/50 border border-gold/20 rounded-xl p-4 focus:ring-1 focus:ring-gold text-white placeholder:text-slate-700 outline-none" placeholder="Your Handle" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="block text-[10px] font-bold tracking-widest text-gold uppercase ml-1" style="">Mission</label>
+<textarea class="w-full bg-background/50 border border-gold/20 rounded-xl p-4 focus:ring-1 focus:ring-gold text-white placeholder:text-slate-700 outline-none" placeholder="Tell us your mission..." rows="3"></textarea>
+</div>
+<button class="w-full bg-gradient-to-r from-gold-dim to-gold text-background font-headline font-black py-5 rounded-full flex items-center justify-center gap-3 active:scale-95 transition-all shadow-xl" style="" type="submit">
+                        SEND SIGNAL <span class="material-symbols-outlined text-sm" style="">send</span>
+</button>
+</form>
+</div>
+</section>
+<!-- Footer -->
+<footer class="pt-12 pb-24 px-8 flex flex-col items-center gap-8 text-center border-t border-gold/5">
+<img alt="BStarPR Footer Logo" class="w-12 h-12 w-20 h-20 object-contain mx-auto" src="https://lh3.googleusercontent.com/aida/ADBb0uiCzrI6FkOPuVKc6rprH7NWUMU5gI-m1t96hEPem6gVihDK_QMHHKg2wNpR4cqKUo-ws-jwZgfbYf8RfK9ecTySfmxxZf3y6sTiyMPpuQQWvkRGEcs2Svo-qItn4s-ldWBk_OyLqhNhkwsZ1UZjYkyHqFnFRH2tHV-nZLqyInbWautpIC1zXpM7B6jkS7Bh7FV8dHfYnnSXHpFuhU_LTYRach8nk7Rc_68U-ZBA9HahlyqhVk6RMW6xpTVASqD0s7L6YrPeWFI4R_k" style=""/>
+<div class="font-headline text-lg font-bold gold-gradient-text tracking-widest" style="">BSTARPR</div>
+<div class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+<a class="text-slate-500 hover:text-gold transition-colors text-[10px] font-bold tracking-widest uppercase" href="#" style="">Privacy</a>
+<a class="text-slate-500 hover:text-gold transition-colors text-[10px] font-bold tracking-widest uppercase" href="#" style="">Terms</a>
+<a class="text-slate-500 hover:text-gold transition-colors text-[10px] font-bold tracking-widest uppercase" href="#" style="">Press</a>
+</div>
+<p class="text-[10px] text-slate-600 font-light tracking-widest" style="">© 2024 BSTARPR. ARCHITECTED FOR THE INFINITE.</p>
+</footer>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-8 left-1/2 -translate-x-1/2 w-[92%] max-w-lg flex justify-around items-center py-4 px-2 premium-glass z-50 rounded-full border border-gold/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+<a class="flex flex-col items-center justify-center text-gold" href="#" style="">
+<span class="material-symbols-outlined text-xl mb-1" style="">auto_awesome</span>
+<span class="text-[10px] uppercase tracking-widest font-bold" style="">Home</span>
+<div class="w-1 h-1 bg-gold rounded-full mt-1 shadow-[0_0_8px_#D4AF37]"></div>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-70 hover:text-gold transition-colors" href="#" style="">
+<span class="material-symbols-outlined text-xl mb-1" style="">rocket_launch</span>
+<span class="text-[10px] uppercase tracking-widest font-bold" style="">Work</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-70 hover:text-gold transition-colors" href="#" style="">
+<span class="material-symbols-outlined text-xl mb-1" style="">mood</span>
+<span class="text-[10px] uppercase tracking-widest font-bold" style="">Vibe</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-70 hover:text-gold transition-colors" href="#" style="">
+<span class="material-symbols-outlined text-xl mb-1" style="">newspaper</span>
+<span class="text-[10px] uppercase tracking-widest font-bold" style="">Press</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-70 hover:text-gold transition-colors" href="#" style="">
+<span class="material-symbols-outlined text-xl mb-1" style="">send</span>
+<span class="text-[10px] uppercase tracking-widest font-bold" style="">Connect</span>
+</a>
+</nav>
+<script>const phrases = ["ADVOCATE", "THE VAULT", "THE FORMULA", "AURA ARCHITECT", "HISTORIANS", "LEGACY DEVELOPERS", "BRAND PRESERVATIONISTS", "PREVENTER", "VOCALIZER"];
+        let currentIdx = 0;
+        const headlineEl = document.getElementById('hero-headline');
+
+        function updateHeadline() {
+            if(!headlineEl) return;
+            headlineEl.style.transition = 'opacity 0.4s ease-in-out, transform 0.4s ease-in-out';
+            headlineEl.style.opacity = 0;
+            headlineEl.style.transform = 'translateY(10px)';
+
+            setTimeout(() => {
+                currentIdx = (currentIdx + 1) % phrases.length;
+                const text = phrases[currentIdx];
+                headlineEl.textContent = text;
+                
+                // Reduce font size specifically for long phrases
+                if (text === 'BRAND PRESERVATIONISTS') {
+                    headlineEl.style.fontSize = '1.75rem';
+                } else {
+                    headlineEl.style.fontSize = '';
+                }
+
+                headlineEl.style.opacity = 1;
+                headlineEl.style.transform = 'translateY(0)';
+            }, 400);
+        }
+
+        setInterval(updateHeadline, 3500);
+
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("scroll-tracker").style.width = scrolled + "%";
+        };</script>
+</body></html>
